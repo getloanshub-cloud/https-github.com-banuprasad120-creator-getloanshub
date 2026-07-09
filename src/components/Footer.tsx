@@ -37,7 +37,7 @@ export default function Footer({ setView, setSelectedLoanType }: FooterProps) {
   };
 
   return (
-    <footer className="relative bg-[#070B19] text-slate-400 border-t border-slate-800/60 pt-20 pb-8 mt-auto overflow-hidden">
+    <footer className="relative bg-[#030712] text-slate-400 border-t border-slate-800/60 pt-20 pb-8 mt-auto overflow-hidden">
       {/* Decorative Blur Backgrounds */}
       <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-[100px] pointer-events-none -z-10" />
       <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-accent/5 rounded-full blur-[120px] pointer-events-none -z-10" />

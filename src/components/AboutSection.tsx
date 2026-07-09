@@ -38,7 +38,7 @@ export default function AboutSection() {
             <span className="text-xs font-bold text-primary dark:text-accent uppercase tracking-widest bg-primary/5 dark:bg-accent/10 px-3.5 py-1.5 rounded-full">
               ABOUT GET LOANS HUB
             </span>
-            <h2 className="font-display font-extrabold text-3xl sm:text-4xl lg:text-[42px] text-slate-900 dark:text-white leading-tight">
+            <h2 className="font-display font-extrabold fluid-heading text-slate-900 dark:text-white">
               Empowering Your Financial Future
             </h2>
             <div className="font-sans text-slate-650 dark:text-slate-350 space-y-4 leading-relaxed text-sm sm:text-base">
@@ -104,7 +104,7 @@ export default function AboutSection() {
         </div>
 
         {/* Vision, Mission, Strategy */}
-        <div className="grid md:grid-cols-3 gap-8 mb-20 text-left">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 mb-20 text-left">
           {/* Vision */}
           <motion.div 
             initial={{ opacity: 0, y: 30 }}

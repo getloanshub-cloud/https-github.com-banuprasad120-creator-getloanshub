@@ -25,10 +25,10 @@
 }
 
 .dark-theme {
-  --background: #070B17;
+  --background: #030712;
   --foreground: #FFFFFF;
   --card: #111827;
-  --card-secondary: #162033;
+  --card-secondary: #1F2937;
   --text-primary: #FFFFFF;
   --text-secondary: #D1D5DB;
   --text-muted: #94A3B8;
@@ -203,6 +203,21 @@ body {
 
 .animate-marquee:hover {
   animation-play-state: paused;
+}
+
+.fluid-title {
+  font-size: clamp(2rem, 6vw, 4.5rem);
+  line-height: 1.1;
+}
+
+.fluid-heading {
+  font-size: clamp(1.75rem, 4vw, 3rem);
+  line-height: 1.2;
+}
+
+.fluid-body {
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  line-height: 1.6;
 }
 
 

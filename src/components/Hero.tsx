@@ -85,17 +85,17 @@ export default function Hero({ setView, setSelectedLoanType }: HeroProps) {
 
             {/* Headline and Subtitle */}
             <motion.div className="space-y-3" variants={itemVariants}>
-              <h1 className="font-display font-[900] text-[36px] sm:text-5xl lg:text-[58px] leading-[1.1] tracking-tight text-[#0A2540] dark:text-white">
+              <h1 className="font-display font-[900] fluid-title tracking-tight text-[#0A2540] dark:text-white">
                 Get Loans Hub
               </h1>
-              <p className="font-display font-extrabold text-[24px] sm:text-3xl lg:text-[38px] leading-[1.2] text-primary dark:text-[#F5B301]">
+              <p className="font-display font-extrabold fluid-heading text-primary dark:text-[#F5B301]">
                 One-Stop Solution for all Your Loan Needs
               </p>
             </motion.div>
 
             {/* Description */}
             <motion.p
-              className="font-sans text-sm sm:text-base lg:text-lg leading-[1.6] text-slate-600 dark:text-slate-350 max-w-2xl font-medium"
+              className="font-sans fluid-body text-slate-600 dark:text-slate-350 max-w-2xl font-medium"
               variants={itemVariants}
             >
               Compare loans from leading trusted banks and NBFCs. Get expert guidance, competitive interest rates, and quick approvals—all from one secure platform.
@@ -108,7 +108,7 @@ export default function Hero({ setView, setSelectedLoanType }: HeroProps) {
             >
               <button
                 onClick={() => setView('apply')}
-                className="h-12 sm:px-8 rounded-xl bg-gradient-to-r from-primary to-secondary hover:opacity-95 text-white font-bold text-sm shadow-lg shadow-primary/20 flex items-center justify-center gap-2 cursor-pointer transition-all active:scale-[0.98]"
+                className="h-14 px-8 rounded-2xl bg-gradient-to-r from-primary to-secondary hover:opacity-95 text-white font-bold text-sm shadow-lg shadow-primary/20 flex items-center justify-center gap-2 cursor-pointer transition-all active:scale-[0.98] w-full sm:w-auto"
               >
                 <span>Apply Now</span>
                 <ChevronRight className="w-4 h-4" />
@@ -116,7 +116,7 @@ export default function Hero({ setView, setSelectedLoanType }: HeroProps) {
 
               <a
                 href="tel:9000100262"
-                className="h-12 sm:px-6 rounded-xl border-2 border-primary/20 hover:border-primary/40 bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 text-primary dark:text-slate-200 font-bold text-sm flex items-center justify-center gap-2 shadow-sm transition-all"
+                className="h-14 px-6 rounded-2xl border-2 border-primary/20 hover:border-primary/40 bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 text-primary dark:text-slate-200 font-bold text-sm flex items-center justify-center gap-2 shadow-sm transition-all w-full sm:w-auto"
               >
                 <span>📞 Call: 9000100262</span>
               </a>
@@ -125,7 +125,7 @@ export default function Hero({ setView, setSelectedLoanType }: HeroProps) {
                 href="https://wa.me/919000100262"
                 target="_blank"
                 rel="noreferrer"
-                className="h-12 sm:px-6 rounded-xl bg-[#16A34A] hover:bg-green-700 text-white font-bold text-sm flex items-center justify-center gap-2 shadow-md shadow-green-600/10 transition-all"
+                className="h-14 px-6 rounded-2xl bg-[#16A34A] hover:bg-green-700 text-white font-bold text-sm flex items-center justify-center gap-2 shadow-md shadow-green-600/10 transition-all w-full sm:w-auto"
               >
                 <MessageCircle className="w-4.5 h-4.5" />
                 <span>WhatsApp</span>

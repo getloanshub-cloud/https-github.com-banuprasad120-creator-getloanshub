@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Sparkles, Menu, X, Sun, Moon, LogIn, LogOut, ChevronRight, LayoutDashboard } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { supabase } from '@/lib/supabase';
@@ -13,6 +13,33 @@ interface NavbarProps {
   setTheme: (theme: 'light' | 'dark') => void;
 }
 
+const MenuButton = ({ isOpen, onClick }: { isOpen: boolean; onClick: () => void }) => {
+  return (
+    <button
+      onClick={onClick}
+      className="w-12 h-12 rounded-xl border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-300 flex flex-col items-center justify-center gap-1.5 cursor-pointer focus-visible:ring-2 focus-visible:ring-primary dark:focus-visible:ring-accent outline-none relative overflow-hidden bg-white/40 dark:bg-slate-900/40 backdrop-blur-md"
+      title={isOpen ? "Close menu" : "Open menu"}
+      aria-label={isOpen ? "Close menu" : "Open menu"}
+    >
+      <motion.span
+        animate={isOpen ? { rotate: 45, y: 5.5 } : { rotate: 0, y: 0 }}
+        transition={{ duration: 0.2 }}
+        className="w-5 h-0.5 bg-current rounded-full"
+      />
+      <motion.span
+        animate={isOpen ? { opacity: 0, x: -10 } : { opacity: 1, x: 0 }}
+        transition={{ duration: 0.2 }}
+        className="w-5 h-0.5 bg-current rounded-full"
+      />
+      <motion.span
+        animate={isOpen ? { rotate: -45, y: -5.5 } : { rotate: 0, y: 0 }}
+        transition={{ duration: 0.2 }}
+        className="w-5 h-0.5 bg-current rounded-full"
+      />
+    </button>
+  );
+};
+
 export default function Navbar({
   currentView,
   setView,
@@ -21,10 +48,39 @@ export default function Navbar({
 }: NavbarProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const drawerRef = useRef<HTMLDivElement>(null);
   
   // Auth state
   const [user, setUser] = useState<any>(null);
   const [profileRole, setProfileRole] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!isOpen || !drawerRef.current) return;
+    const focusableElements = drawerRef.current.querySelectorAll(
+      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+    );
+    if (focusableElements.length === 0) return;
+    const firstElement = focusableElements[0] as HTMLElement;
+    const lastElement = focusableElements[focusableElements.length - 1] as HTMLElement;
+
+    const handleFocusTrap = (e: KeyboardEvent) => {
+      if (e.key !== 'Tab') return;
+      if (e.shiftKey) {
+        if (document.activeElement === firstElement) {
+          lastElement.focus();
+          e.preventDefault();
+        }
+      } else {
+        if (document.activeElement === lastElement) {
+          firstElement.focus();
+          e.preventDefault();
+        }
+      }
+    };
+
+    window.addEventListener('keydown', handleFocusTrap);
+    return () => window.removeEventListener('keydown', handleFocusTrap);
+  }, [isOpen]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -78,10 +134,22 @@ export default function Navbar({
         document.body.style.overflow = '';
       }
     }
+    
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setIsOpen(false);
+      }
+    };
+
+    if (isOpen) {
+      window.addEventListener('keydown', handleKeyDown);
+    }
+
     return () => {
       if (typeof window !== 'undefined') {
         document.body.style.overflow = '';
       }
+      window.removeEventListener('keydown', handleKeyDown);
     };
   }, [isOpen]);
 
@@ -253,16 +321,7 @@ export default function Navbar({
               {theme === 'light' ? <Moon className="w-5 h-5" /> : <Sun className="w-5 h-5" />}
             </button>
 
-            <button
-              onClick={() => setIsOpen(true)}
-              className="w-12 h-12 rounded-xl border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-300 flex items-center justify-center cursor-pointer focus-visible:ring-2 focus-visible:ring-primary dark:focus-visible:ring-accent outline-none"
-              title="Open menu"
-              aria-label="Open navigation menu"
-              aria-expanded={isOpen}
-              aria-haspopup="true"
-            >
-              <Menu className="w-6 h-6" />
-            </button>
+            <MenuButton isOpen={isOpen} onClick={() => setIsOpen(!isOpen)} />
           </div>
         </div>
       </div>
@@ -282,6 +341,7 @@ export default function Navbar({
 
             {/* Drawer */}
             <motion.div
+              ref={drawerRef}
               initial={{ x: '100%' }}
               animate={{ x: 0 }}
               exit={{ x: '100%' }}

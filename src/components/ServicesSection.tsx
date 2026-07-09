@@ -87,7 +87,7 @@ export default function ServicesSection({ setView, setSelectedLoanType }: Servic
         </div>
 
         {/* Services Grid (4 Columns) */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-20">
+        <div className="grid grid-cols-1 min-[370px]:grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-20">
           {PRODUCTS.map((product, idx) => {
             const IconComponent = product.icon;
             return (
