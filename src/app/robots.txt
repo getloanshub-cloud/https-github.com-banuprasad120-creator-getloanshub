@@ -1,0 +1,11 @@
+# DIGI LOANS - Robots.txt
+# Authorized crawling paths for googlebot, bingbot and search crawlers
+
+User-agent: *
+Allow: /
+Disallow: /customer-portal/
+Disallow: /employee-portal/
+Disallow: /admin-panel/
+
+# Sitemap location
+Sitemap: https://stardigiloans.com/sitemap.xml
