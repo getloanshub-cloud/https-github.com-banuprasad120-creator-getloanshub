@@ -220,4 +220,70 @@ body {
   line-height: 1.6;
 }
 
+.container-custom {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+@media (min-width: 768px) {
+  .container-custom {
+    max-width: 720px;
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container-custom {
+    max-width: 1100px;
+    padding-left: 48px;
+    padding-right: 48px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .container-custom {
+    max-width: 1320px;
+    padding-left: 64px;
+    padding-right: 64px;
+  }
+}
+
+/* Adaptive section vertical spacing */
+.section-py {
+  padding-top: clamp(4rem, 8vw, 7.5rem);
+  padding-bottom: clamp(4rem, 8vw, 7.5rem);
+}
+
+/* CRED / Revolut style premium border cards */
+.fintech-card {
+  position: relative;
+  background: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(10, 77, 157, 0.08);
+  box-shadow: 0 4px 30px rgba(10, 77, 157, 0.02);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.dark-theme .fintech-card {
+  background: rgba(17, 24, 39, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.03);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+}
+
+.fintech-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(10, 77, 157, 0.2);
+  box-shadow: 0 12px 30px rgba(10, 77, 157, 0.08);
+}
+
+.dark-theme .fintech-card:hover {
+  border-color: rgba(245, 179, 1, 0.15);
+  box-shadow: 0 12px 30px rgba(245, 179, 1, 0.03);
+}
+
 

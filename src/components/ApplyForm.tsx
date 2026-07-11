@@ -138,309 +138,184 @@ export default function ApplyForm({ defaultLoanType = 'Personal Loan', onSuccess
       <div className="p-6 sm:p-8 rounded-3xl glass shadow-xl border border-slate-200/50 dark:border-slate-800 relative">
         <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-tr from-accent to-secondary opacity-15 rounded-bl-full -z-10 pointer-events-none" />
 
-        {/* Step Indicators */}
-        <div className="flex items-center justify-between mb-8 max-w-xs mx-auto select-none">
-          {[1, 2, 3].map((s) => (
-            <div key={s} className="flex items-center gap-1">
-              <div
-                className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold transition-all ${
-                  step === s
-                    ? 'bg-primary dark:bg-accent text-white dark:text-slate-950 ring-2 ring-primary/20 dark:ring-accent/20'
-                    : step > s
-                    ? 'bg-success text-white font-bold'
-                    : 'bg-slate-100 dark:bg-slate-800 text-slate-400'
-                }`}
-              >
-                {step > s ? '✓' : s}
-              </div>
-              {s < 3 && (
-                <div
-                  className={`w-12 h-0.5 rounded transition-all ${
-                    step > s ? 'bg-success' : 'bg-slate-200 dark:bg-slate-800'
-                  }`}
-                />
-              )}
-            </div>
-          ))}
-        </div>
-
-        {/* Dynamic Step Content */}
-        {step === 1 && (
-          <div className="space-y-6 text-left">
+        {step !== 4 ? (
+          <form onSubmit={handleSubmit} className="space-y-6 text-left">
             <div>
-              <h3 className="font-display font-extrabold text-lg text-slate-900 dark:text-white">
-                Personal Details
-              </h3>
-              <p className="text-xs text-slate-400">Please provide primary contact information</p>
+              <h2 className="font-display font-extrabold text-2xl text-slate-900 dark:text-white">
+                Apply for Loan
+              </h2>
+              <p className="text-xs text-slate-400 mt-1">Please provide your details below to instantly match with top lenders.</p>
             </div>
 
-            <div className="space-y-4">
+            {/* Fields directly in page layout */}
+            <div className="space-y-1.5">
+              <label className="text-[10px] uppercase font-bold text-slate-400">Full Name</label>
+              <input
+                type="text"
+                required
+                placeholder="Enter full name"
+                value={fullName}
+                onChange={(e) => { setFullName(e.target.value); validateField('fullName', e.target.value); }}
+                className={`w-full px-4 h-12 rounded-xl border bg-white/50 dark:bg-slate-900/50 text-sm outline-none focus:ring-1 focus:ring-primary dark:focus:ring-accent ${errors.fullName ? 'border-danger focus:ring-danger' : 'border-slate-200 dark:border-slate-800'}`}
+              />
+              {errors.fullName && <p className="text-[10px] text-danger font-bold leading-none mt-1">{errors.fullName}</p>}
+            </div>
+
+            <div className="grid sm:grid-cols-2 gap-4">
               <div className="space-y-1.5">
-                <label className="text-[10px] uppercase font-bold text-slate-400">Full Name</label>
+                <label className="text-[10px] uppercase font-bold text-slate-400">Mobile Number</label>
                 <input
-                  type="text"
+                  type="tel"
                   required
-                  placeholder="Enter full name"
-                  value={fullName}
-                  onChange={(e) => { setFullName(e.target.value); validateField('fullName', e.target.value); }}
-                  className={`w-full px-4 h-12 rounded-xl border bg-white/50 dark:bg-slate-900/50 text-sm outline-none focus:ring-1 focus:ring-primary dark:focus:ring-accent ${errors.fullName ? 'border-danger focus:ring-danger' : 'border-slate-200 dark:border-slate-800'}`}
+                  placeholder="Enter mobile number"
+                  value={mobileNumber}
+                  onChange={(e) => { setMobileNumber(e.target.value); validateField('mobileNumber', e.target.value); }}
+                  className={`w-full px-4 h-12 rounded-xl border bg-white/50 dark:bg-slate-900/50 text-sm outline-none focus:ring-1 focus:ring-primary dark:focus:ring-accent ${errors.mobileNumber ? 'border-danger focus:ring-danger' : 'border-slate-200 dark:border-slate-800'}`}
                 />
-                {errors.fullName && <p className="text-[10px] text-danger font-bold leading-none mt-1">{errors.fullName}</p>}
+                {errors.mobileNumber && <p className="text-[10px] text-danger font-bold leading-none mt-1">{errors.mobileNumber}</p>}
               </div>
-
-              <div className="grid sm:grid-cols-2 gap-4">
-                <div className="space-y-1.5">
-                  <label className="text-[10px] uppercase font-bold text-slate-400">Mobile Number</label>
-                  <input
-                    type="tel"
-                    required
-                    placeholder="Enter mobile number"
-                    value={mobileNumber}
-                    onChange={(e) => { setMobileNumber(e.target.value); validateField('mobileNumber', e.target.value); }}
-                    className={`w-full px-4 h-12 rounded-xl border bg-white/50 dark:bg-slate-900/50 text-sm outline-none focus:ring-1 focus:ring-primary dark:focus:ring-accent ${errors.mobileNumber ? 'border-danger focus:ring-danger' : 'border-slate-200 dark:border-slate-800'}`}
-                  />
-                  {errors.mobileNumber && <p className="text-[10px] text-danger font-bold leading-none mt-1">{errors.mobileNumber}</p>}
-                </div>
-                <div className="space-y-1.5">
-                  <label className="text-[10px] uppercase font-bold text-slate-400">Email Address</label>
-                  <input
-                    type="email"
-                    placeholder="Enter email address"
-                    value={email}
-                    onChange={(e) => { setEmail(e.target.value); validateField('email', e.target.value); }}
-                    className={`w-full px-4 h-12 rounded-xl border bg-white/50 dark:bg-slate-900/50 text-sm outline-none focus:ring-1 focus:ring-primary dark:focus:ring-accent ${errors.email ? 'border-danger focus:ring-danger' : 'border-slate-200 dark:border-slate-800'}`}
-                  />
-                  {errors.email && <p className="text-[10px] text-danger font-bold leading-none mt-1">{errors.email}</p>}
-                </div>
-              </div>
-
               <div className="space-y-1.5">
-                <label className="text-[10px] uppercase font-bold text-slate-400">City / Town</label>
+                <label className="text-[10px] uppercase font-bold text-slate-400">Email Address</label>
                 <input
-                  type="text"
-                  required
-                  placeholder="Enter city or town name"
-                  value={city}
-                  onChange={(e) => { setCity(e.target.value); validateField('city', e.target.value); }}
-                  className={`w-full px-4 h-12 rounded-xl border bg-white/50 dark:bg-slate-900/50 text-sm outline-none focus:ring-1 focus:ring-primary dark:focus:ring-accent ${errors.city ? 'border-danger focus:ring-danger' : 'border-slate-200 dark:border-slate-800'}`}
+                  type="email"
+                  placeholder="Enter email address"
+                  value={email}
+                  onChange={(e) => { setEmail(e.target.value); validateField('email', e.target.value); }}
+                  className={`w-full px-4 h-12 rounded-xl border bg-white/50 dark:bg-slate-900/50 text-sm outline-none focus:ring-1 focus:ring-primary dark:focus:ring-accent ${errors.email ? 'border-danger focus:ring-danger' : 'border-slate-200 dark:border-slate-800'}`}
                 />
-                {errors.city && <p className="text-[10px] text-danger font-bold leading-none mt-1">{errors.city}</p>}
-              </div>
-
-              <div className="grid sm:grid-cols-2 gap-4">
-                <div className="space-y-1.5">
-                  <label className="text-[10px] uppercase font-bold text-slate-400">Aadhaar Card Number (Optional)</label>
-                  <input
-                    type="text"
-                    maxLength={12}
-                    placeholder="12-digit Aadhaar Number"
-                    value={aadhaar}
-                    onChange={(e) => { setAadhaar(e.target.value); validateField('aadhaar', e.target.value); }}
-                    className={`w-full px-4 h-12 rounded-xl border bg-white/50 dark:bg-slate-900/50 text-sm outline-none focus:ring-1 focus:ring-primary dark:focus:ring-accent ${errors.aadhaar ? 'border-danger focus:ring-danger' : 'border-slate-200 dark:border-slate-800'}`}
-                  />
-                  {errors.aadhaar && <p className="text-[10px] text-danger font-bold leading-none mt-1">{errors.aadhaar}</p>}
-                </div>
-                <div className="space-y-1.5">
-                  <label className="text-[10px] uppercase font-bold text-slate-400">PAN Card Number (Optional)</label>
-                  <input
-                    type="text"
-                    maxLength={10}
-                    placeholder="10-character PAN Card"
-                    value={pan}
-                    onChange={(e) => { setPan(e.target.value); validateField('pan', e.target.value); }}
-                    className={`w-full px-4 h-12 rounded-xl border bg-white/50 dark:bg-slate-900/50 text-sm outline-none focus:ring-1 focus:ring-primary dark:focus:ring-accent ${errors.pan ? 'border-danger focus:ring-danger' : 'border-slate-200 dark:border-slate-800'}`}
-                  />
-                  {errors.pan && <p className="text-[10px] text-danger font-bold leading-none mt-1">{errors.pan}</p>}
-                </div>
+                {errors.email && <p className="text-[10px] text-danger font-bold leading-none mt-1">{errors.email}</p>}
               </div>
             </div>
 
-            <button
-              onClick={() => { if (fullName && mobileNumber && !Object.values(errors).some(x => x)) setStep(2); }}
-              disabled={!fullName || !mobileNumber || Object.values(errors).some(x => x)}
-              className="w-full h-12 bg-primary dark:bg-accent text-white dark:text-slate-950 rounded-xl font-bold text-sm transition-opacity hover:opacity-95 disabled:opacity-40 cursor-pointer flex items-center justify-center gap-1.5 focus-visible:ring-2 focus-visible:ring-primary dark:focus-visible:ring-accent outline-none"
-            >
-              <span>Continue</span>
-              <ChevronRight className="w-4 h-4" />
-            </button>
-          </div>
-        )}
-
-        {step === 2 && (
-          <div className="space-y-6 text-left">
-            <div>
-              <h3 className="font-display font-extrabold text-lg text-slate-900 dark:text-white">
-                Loan Specifications
-              </h3>
-              <p className="text-xs text-slate-400">Define the financing details of your requirement</p>
+            <div className="space-y-1.5">
+              <label className="text-[10px] uppercase font-bold text-slate-400">City / Town</label>
+              <input
+                type="text"
+                required
+                placeholder="Enter city or town name"
+                value={city}
+                onChange={(e) => { setCity(e.target.value); validateField('city', e.target.value); }}
+                className={`w-full px-4 h-12 rounded-xl border bg-white/50 dark:bg-slate-900/50 text-sm outline-none focus:ring-1 focus:ring-primary dark:focus:ring-accent ${errors.city ? 'border-danger focus:ring-danger' : 'border-slate-200 dark:border-slate-800'}`}
+              />
+              {errors.city && <p className="text-[10px] text-danger font-bold leading-none mt-1">{errors.city}</p>}
             </div>
 
-            <div className="space-y-4">
-              <div className="grid sm:grid-cols-2 gap-4">
-                <div className="space-y-1.5">
-                  <label className="text-[10px] uppercase font-bold text-slate-400">Loan Product</label>
-                  <select
-                    value={loanType}
-                    onChange={(e) => setLoanType(e.target.value)}
-                    className="w-full px-4 h-12 rounded-xl border border-slate-200 dark:border-slate-800 bg-white/50 dark:bg-slate-900/50 text-sm outline-none focus:ring-1 focus:ring-primary dark:focus:ring-accent font-semibold text-slate-700 dark:text-slate-300"
-                  >
-                    <option>Personal Loan</option>
-                    <option>Business Loan</option>
-                    <option>Home Loan</option>
-                    <option>Mortgage Loan</option>
-                    <option>Working Capital Loan</option>
-                    <option>Auto Loan</option>
-                    <option>Gold Loan</option>
-                  </select>
-                </div>
-                <div className="space-y-1.5">
-                  <label className="text-[10px] uppercase font-bold text-slate-400">Occupation Category</label>
-                  <select
-                    value={occupation}
-                    onChange={(e) => setOccupation(e.target.value)}
-                    className="w-full px-4 h-12 rounded-xl border border-slate-200 dark:border-slate-800 bg-white/50 dark:bg-slate-900/50 text-sm outline-none focus:ring-1 focus:ring-primary dark:focus:ring-accent font-semibold text-slate-700 dark:text-slate-300"
-                  >
-                    <option>Salaried</option>
-                    <option>Self-Employed Professional</option>
-                    <option>Business Owner / Trader</option>
-                    <option>Other / Freelance</option>
-                  </select>
-                </div>
-              </div>
+            {/* Divider */}
+            <div className="border-t border-slate-200/50 dark:border-slate-800/50 my-6" />
 
+            <div className="grid sm:grid-cols-2 gap-4">
               <div className="space-y-1.5">
-                <label className="text-[10px] uppercase font-bold text-slate-400 flex justify-between">
-                  <span>Required Loan Amount</span>
-                  <span className="font-extrabold text-primary dark:text-accent">₹{loanAmount.toLocaleString('en-IN')}</span>
-                </label>
+                <label className="text-[10px] uppercase font-bold text-slate-400">Loan Product</label>
+                <select
+                  value={loanType}
+                  onChange={(e) => setLoanType(e.target.value)}
+                  className="w-full px-4 h-12 rounded-xl border border-slate-200 dark:border-slate-800 bg-white/50 dark:bg-slate-900/50 text-sm outline-none focus:ring-1 focus:ring-primary dark:focus:ring-accent font-semibold text-slate-700 dark:text-slate-300"
+                >
+                  <option>Personal Loan</option>
+                  <option>Home Loan</option>
+                  <option>Doctor Loan</option>
+                </select>
+              </div>
+              <div className="space-y-1.5">
+                <label className="text-[10px] uppercase font-bold text-slate-400">Occupation Category</label>
+                <select
+                  value={occupation}
+                  onChange={(e) => setOccupation(e.target.value)}
+                  className="w-full px-4 h-12 rounded-xl border border-slate-200 dark:border-slate-800 bg-white/50 dark:bg-slate-900/50 text-sm outline-none focus:ring-1 focus:ring-primary dark:focus:ring-accent font-semibold text-slate-700 dark:text-slate-300"
+                >
+                  <option>Salaried</option>
+                  <option>Self-Employed Professional</option>
+                  <option>Business Owner / Trader</option>
+                  <option>Other / Freelance</option>
+                </select>
+              </div>
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-[10px] uppercase font-bold text-slate-400 flex justify-between">
+                <span>Required Loan Amount</span>
+                <span className="font-extrabold text-primary dark:text-accent">₹{loanAmount.toLocaleString('en-IN')}</span>
+              </label>
+              <div className="relative">
+                <span className="absolute inset-y-0 left-0 pl-4 flex items-center text-slate-400 font-bold text-sm">
+                  ₹
+                </span>
                 <input
-                  type="range"
+                  type="number"
                   min={50000}
                   max={10000000}
-                  step={50000}
-                  value={loanAmount}
+                  value={loanAmount || ''}
                   onChange={(e) => setLoanAmount(Number(e.target.value))}
-                  className="w-full h-2 rounded-lg bg-slate-200 dark:bg-slate-700 accent-primary dark:accent-accent outline-none cursor-pointer"
+                  className="w-full pl-8 pr-4 h-12 rounded-xl border border-slate-200 dark:border-slate-800 bg-white/50 dark:bg-slate-900/50 text-sm outline-none focus:ring-1 focus:ring-primary dark:focus:ring-accent font-semibold text-slate-800 dark:text-white"
+                  placeholder="Enter custom loan amount"
                 />
               </div>
+              <input
+                type="range"
+                min={50000}
+                max={10000000}
+                step={50000}
+                value={loanAmount > 10000000 ? 10000000 : loanAmount}
+                onChange={(e) => setLoanAmount(Number(e.target.value))}
+                className="w-full h-2 rounded-lg bg-slate-200 dark:bg-slate-700 accent-primary dark:accent-accent outline-none cursor-pointer"
+              />
+            </div>
 
-              <div className="space-y-1.5">
-                <label className="text-[10px] uppercase font-bold text-slate-400 flex justify-between">
-                  <span>Net Monthly Salary / Income</span>
-                  <span className="font-extrabold text-slate-700 dark:text-slate-200">₹{monthlyIncome.toLocaleString('en-IN')}</span>
-                </label>
+            <div className="space-y-2">
+              <label className="text-[10px] uppercase font-bold text-slate-400 flex justify-between">
+                <span>Net Monthly Salary / Income</span>
+                <span className="font-extrabold text-slate-700 dark:text-slate-200">₹{monthlyIncome.toLocaleString('en-IN')}</span>
+              </label>
+              <div className="relative">
+                <span className="absolute inset-y-0 left-0 pl-4 flex items-center text-slate-400 font-bold text-sm">
+                  ₹
+                </span>
                 <input
-                  type="range"
+                  type="number"
                   min={10000}
                   max={500000}
-                  step={5000}
-                  value={monthlyIncome}
+                  value={monthlyIncome || ''}
                   onChange={(e) => setMonthlyIncome(Number(e.target.value))}
-                  className="w-full h-2 rounded-lg bg-slate-200 dark:bg-slate-700 accent-primary dark:accent-accent outline-none cursor-pointer"
+                  className="w-full pl-8 pr-4 h-12 rounded-xl border border-slate-200 dark:border-slate-800 bg-white/50 dark:bg-slate-900/50 text-sm outline-none focus:ring-1 focus:ring-primary dark:focus:ring-accent font-semibold text-slate-800 dark:text-white"
+                  placeholder="Enter custom monthly salary/income"
                 />
               </div>
-
-              <div className="space-y-1.5">
-                <label className="text-[10px] uppercase font-bold text-slate-400">Additional Message / Remarks</label>
-                <textarea
-                  rows={2}
-                  placeholder="Enter details..."
-                  value={message}
-                  onChange={(e) => setMessage(e.target.value)}
-                  className="w-full px-4 py-3 rounded-xl border border-slate-200/60 dark:border-slate-800 bg-white/50 dark:bg-slate-900/50 text-sm outline-none focus:ring-1 focus:ring-primary dark:focus:ring-accent"
-                />
-              </div>
-            </div>
-
-            <div className="flex gap-2">
-              <button
-                onClick={() => setStep(1)}
-                className="flex-1 h-12 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 rounded-xl font-bold text-xs transition-colors hover:bg-slate-100 dark:hover:bg-slate-800 cursor-pointer flex items-center justify-center gap-1.5"
-              >
-                <ChevronLeft className="w-4 h-4" />
-                <span>Back</span>
-              </button>
-              <button
-                onClick={() => setStep(3)}
-                className="flex-1 h-12 bg-primary dark:bg-accent text-white dark:text-slate-950 rounded-xl font-bold text-xs hover:opacity-95 cursor-pointer flex items-center justify-center gap-1.5"
-              >
-                <span>Continue</span>
-                <ChevronRight className="w-4 h-4" />
-              </button>
-            </div>
-          </div>
-        )}
-
-        {step === 3 && (
-          <div className="space-y-6 text-left">
-            <div>
-              <h3 className="font-display font-extrabold text-lg text-slate-900 dark:text-white">
-                Document Uploads
-              </h3>
-              <p className="text-xs text-slate-400">Simulate file attachment (Aadhaar, PAN, Income Papers)</p>
-            </div>
-
-            {/* Upload Zone */}
-            <div className="border-2 border-dashed border-slate-250 dark:border-slate-800 hover:border-primary dark:hover:border-accent rounded-2xl p-6 text-center transition-all bg-slate-50/50 dark:bg-slate-900/20 relative">
               <input
-                type="file"
-                multiple
-                id="apply-file-uploader"
-                onChange={handleFileUpload}
-                className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                type="range"
+                min={10000}
+                max={500000}
+                step={5000}
+                value={monthlyIncome > 500000 ? 500000 : monthlyIncome}
+                onChange={(e) => setMonthlyIncome(Number(e.target.value))}
+                className="w-full h-2 rounded-lg bg-slate-200 dark:bg-slate-700 accent-primary dark:accent-accent outline-none cursor-pointer"
               />
-              <Upload className="w-8 h-8 text-slate-400 mx-auto mb-3" />
-              <p className="text-xs font-bold text-slate-700 dark:text-slate-200">
-                Drag and drop your KYC or Income papers
-              </p>
-              <p className="text-[10px] text-slate-400 mt-1">PDF, JPG, PNG accepted up to 10MB</p>
             </div>
 
-            {/* Selected files list */}
-            {selectedFiles.length > 0 && (
-              <div className="space-y-2 max-h-36 overflow-y-auto pt-2 border-t border-slate-200/50 dark:border-slate-800/50">
-                <h4 className="text-[10px] uppercase font-bold text-slate-400">Selected Files</h4>
-                {selectedFiles.map((file, i) => (
-                  <div key={i} className="flex items-center justify-between p-2.5 rounded-lg bg-slate-100 dark:bg-slate-800/50 border border-slate-200/30 dark:border-slate-800 text-xs">
-                    <div className="flex items-center gap-2 font-medium">
-                      <FileText className="w-4 h-4 text-primary dark:text-accent" />
-                      <span className="text-slate-750 dark:text-slate-200 truncate max-w-[200px]">{file.name}</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <span className="text-[10px] text-slate-400">{file.size}</span>
-                      <button
-                        onClick={() => handleRemoveFile(i)}
-                        className="text-danger hover:underline text-[10px] font-bold cursor-pointer"
-                      >
-                        Remove
-                      </button>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
-
-            <div className="flex gap-2">
-              <button
-                onClick={() => setStep(2)}
-                className="flex-1 h-12 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-350 rounded-xl font-bold text-xs transition-colors hover:bg-slate-100 dark:hover:bg-slate-800 cursor-pointer flex items-center justify-center gap-1.5"
-              >
-                <ChevronLeft className="w-4 h-4" />
-                <span>Back</span>
-              </button>
-              <button
-                onClick={handleSubmit}
-                className="flex-1 h-12 bg-gradient-to-r from-primary to-secondary text-white rounded-xl font-bold text-xs shadow-lg shadow-primary/20 hover:opacity-95 transition-opacity cursor-pointer flex items-center justify-center gap-1.5"
-              >
-                <Send className="w-4 h-4" />
-                <span>Submit Application</span>
-              </button>
+            <div className="space-y-1.5">
+              <label className="text-[10px] uppercase font-bold text-slate-400">Additional Message / Remarks</label>
+              <textarea
+                rows={2}
+                placeholder="Enter details..."
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+                className="w-full px-4 py-3 rounded-xl border border-slate-200/60 dark:border-slate-800 bg-white/50 dark:bg-slate-900/50 text-sm outline-none focus:ring-1 focus:ring-primary dark:focus:ring-accent"
+              />
             </div>
-          </div>
-        )}
 
-        {/* Success screen */}
-        {step === 4 && (
+
+
+            {/* Submit Button */}
+            <button
+              type="submit"
+              disabled={!fullName || !mobileNumber || !city || Object.values(errors).some(x => x)}
+              className="w-full h-[52px] bg-gradient-to-r from-primary to-secondary text-white rounded-xl font-bold text-sm shadow-lg shadow-primary/20 hover:opacity-95 transition-opacity cursor-pointer flex items-center justify-center gap-1.5 disabled:opacity-40"
+            >
+              <Send className="w-4 h-4" />
+              <span>Submit Application</span>
+            </button>
+          </form>
+        ) : (
+          /* Success screen */
           <div className="text-center py-8 space-y-6 relative">
             <ConfettiShower />
             <div className="w-16 h-16 bg-success/15 border border-success text-success rounded-full flex items-center justify-center mx-auto">
@@ -481,7 +356,7 @@ export default function ApplyForm({ defaultLoanType = 'Personal Loan', onSuccess
             </div>
 
             <button
-              onClick={() => { setStep(1); setSelectedFiles([]); }}
+              onClick={() => { setStep(1); setSelectedFiles([]); setFullName(''); setMobileNumber(''); setEmail(''); setCity(''); setAadhaar(''); setPan(''); setMessage(''); }}
               className="h-11 px-6 rounded-xl border border-slate-200 dark:border-slate-800 text-xs font-semibold text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-850 cursor-pointer"
             >
               Submit Another Application

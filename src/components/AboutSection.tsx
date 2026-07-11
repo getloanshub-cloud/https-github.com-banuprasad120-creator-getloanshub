@@ -1,32 +1,65 @@
 "use client";
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Mail, Phone, HeartHandshake, Eye, Target, Compass } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { useInView } from 'react-intersection-observer';
+
+const Counter = ({ value, duration = 1.5 }: { value: number; duration?: number }) => {
+  const [count, setCount] = useState(0);
+  const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.1 });
+
+  useEffect(() => {
+    if (!inView) return;
+    let start = 0;
+    const end = value;
+    if (end === 0) return;
+    const totalMiliseconds = duration * 1000;
+    const incrementTime = Math.max(12, Math.floor(totalMiliseconds / end));
+    
+    const timer = setInterval(() => {
+      start += 1;
+      setCount(start);
+      if (start >= end) {
+        setCount(end);
+        clearInterval(timer);
+      }
+    }, incrementTime);
+
+    return () => clearInterval(timer);
+  }, [inView, value, duration]);
+
+  return <span ref={ref}>{count}</span>;
+};
 
 export default function AboutSection() {
   const representativeInfo = {
     name: 'Loans Advisor',
     title: 'Representative',
-    company: 'Starpowerz Digital Technologies Pvt. Ltd.',
+    company: 'Get Loans Hub',
     phone: '9000100262',
     email: 'info@getloanshub.com'
   };
 
+  const keyMetrics = [
+    { label: 'Years Experience', value: 15, suffix: '+' },
+    { label: 'Bank & NBFC Partners', value: 71, suffix: '+' },
+    { label: 'States Covered', value: 29, suffix: '' },
+    { label: 'Institutions Sourced', value: 100, suffix: '+' }
+  ];
+
   const stats = [
-    { label: 'Associated Company', value: 'Starpowerz Digital Technologies Pvt Ltd.' },
-    { label: 'Experience', value: 'Over 15 years of experience working with more than 100 financial institutions across India' },
-    { label: 'Banks & NBFCs', value: 'Partnering with over 71 Banks/NBFCs' },
-    { label: 'Coverage across states', value: 'Vast yet well-connected network spread across 29 states' },
-    { label: 'Team Information', value: 'Our dedicated team of professional representatives and offices located across the country' }
+    { label: 'Platform Type', value: 'Digital Loan Sourcing Marketplace' },
+    { label: 'Experience Details', value: 'Over 15 years of industry leadership working with premier financial channels across India.' },
+    { label: 'Coverage Spread', value: 'Vast yet well-connected network with offices and local representatives in nationwide nodes.' }
   ];
 
   return (
-    <section className="py-24 bg-gradient-to-b from-white to-slate-50 dark:from-slate-900 dark:to-slate-950" id="about">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="section-py bg-gradient-to-b from-white to-slate-50 dark:from-slate-900 dark:to-slate-950" id="about">
+      <div className="container-custom">
         
         {/* About Main Intro */}
-        <div className="grid lg:grid-cols-12 gap-16 items-center mb-20 text-left">
+        <div className="grid lg:grid-cols-12 gap-16 items-center mb-24 text-left">
           {/* Left: About Text */}
           <motion.div 
             initial={{ opacity: 0, x: -30 }}
@@ -41,12 +74,12 @@ export default function AboutSection() {
             <h2 className="font-display font-extrabold fluid-heading text-slate-900 dark:text-white">
               Empowering Your Financial Future
             </h2>
-            <div className="font-sans text-slate-650 dark:text-slate-350 space-y-4 leading-relaxed text-sm sm:text-base">
+            <div className="font-sans text-slate-655 dark:text-slate-350 space-y-4 leading-relaxed text-sm sm:text-base">
               <p>
                 Get Loans Hub is one of the most trusted, bank-neutral platforms that works closely with its partner banks to secure the lowest interest rates, highest loan eligibility, premium offers, and superior customer service for customers across the country. Apply online at Get Loans Hub to get loans across India. Many banks and NBFCs run special personal loan offers from time to time. Our personalized loan advisors guide you closely throughout the entire loan process, from initial application to final disbursal.
               </p>
               <p>
-                Get Loans Hub is associated with Starpowerz Digital Technologies Pvt. Ltd. We are backed by a team of expert professionals with over 15 years of experience working with more than 100 financial institutions across India. Starpowerz is driven by the vision of extending our financial solutions to remote areas and assisting everyone in need of financial support. Our dedicated team of professional representatives and offices located nationwide help us maintain a vast, well-connected network spread across 29 states, partnering with over 71 banks and NBFCs.
+                We are backed by a team of expert professionals with over 15 years of experience working with more than 100 financial institutions across India. Get Loans Hub is driven by the vision of extending our financial solutions to remote areas and assisting everyone in need of financial support. Our dedicated team of professional representatives and offices located nationwide help us maintain a vast, well-connected network spread across 29 states, partnering with over 71 banks and NBFCs.
               </p>
             </div>
           </motion.div>
@@ -103,16 +136,35 @@ export default function AboutSection() {
           </motion.div>
         </div>
 
+        {/* Dynamic Metric Counter Grid */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-24 text-center">
+          {keyMetrics.map((metric, idx) => (
+            <motion.div
+              key={idx}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: idx * 0.1 }}
+              className="p-6 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200/50 dark:border-slate-800/80 shadow-md flex flex-col items-center justify-center select-none"
+            >
+              <h4 className="font-display font-[900] text-3xl sm:text-4xl text-primary dark:text-accent leading-none">
+                <Counter value={metric.value} />{metric.suffix}
+              </h4>
+              <p className="font-sans text-[10px] sm:text-xs font-bold text-slate-455 mt-2 uppercase tracking-wider">{metric.label}</p>
+            </motion.div>
+          ))}
+        </div>
+
         {/* Vision, Mission, Strategy */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 mb-20 text-left">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 mb-24 text-left">
           {/* Vision */}
           <motion.div 
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 0.4 }}
-            whileHover={{ y: -8, scale: 1.02 }}
-            className="p-8 rounded-3xl glass border border-slate-200/50 dark:border-slate-850 hover:shadow-lg transition-all flex flex-col justify-between cursor-pointer"
+            whileHover={{ y: -8 }}
+            className="p-8 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200/50 dark:border-slate-800/60 shadow-sm flex flex-col justify-between cursor-pointer"
           >
             <div>
               <div className="w-12 h-12 rounded-2xl bg-amber-500/10 flex items-center justify-center text-amber-500 mb-6">
@@ -121,8 +173,8 @@ export default function AboutSection() {
               <h3 className="font-display font-extrabold text-xl text-slate-900 dark:text-white mb-4">
                 Vision
               </h3>
-              <p className="font-sans text-sm text-slate-550 dark:text-slate-400 leading-relaxed font-bold">
-                Living a Confident Life
+              <p className="font-sans text-xs sm:text-sm text-slate-550 dark:text-slate-400 leading-relaxed font-semibold">
+                Building a localized, trusted, transparent loan sourcing gateway that provides easy financing tools to every remote corner across the nation.
               </p>
             </div>
           </motion.div>
@@ -133,8 +185,8 @@ export default function AboutSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 0.4, delay: 0.1 }}
-            whileHover={{ y: -8, scale: 1.02 }}
-            className="p-8 rounded-3xl glass border border-slate-200/50 dark:border-slate-850 hover:shadow-lg transition-all flex flex-col justify-between cursor-pointer"
+            whileHover={{ y: -8 }}
+            className="p-8 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200/50 dark:border-slate-800/60 shadow-sm flex flex-col justify-between cursor-pointer"
           >
             <div>
               <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center text-primary dark:text-accent mb-6">
@@ -143,8 +195,8 @@ export default function AboutSection() {
               <h3 className="font-display font-extrabold text-xl text-slate-900 dark:text-white mb-4">
                 Mission
               </h3>
-              <p className="font-sans text-sm text-slate-550 dark:text-slate-400 leading-relaxed">
-                Our goal at Get Loans Hub is to provide access to home loans, personal loans, mortgage loans, business loans & MSME loans at competitive interest rates.
+              <p className="font-sans text-xs sm:text-sm text-slate-550 dark:text-slate-400 leading-relaxed">
+                Provide frictionless access to home loans, personal loans, and doctor loans at competitive interest rates with zero hidden channels.
               </p>
             </div>
           </motion.div>
@@ -155,8 +207,8 @@ export default function AboutSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 0.4, delay: 0.2 }}
-            whileHover={{ y: -8, scale: 1.02 }}
-            className="p-8 rounded-3xl glass premium-border border border-slate-200/50 dark:border-slate-850 hover:shadow-lg hover:border-teal-500/25 transition-all flex flex-col justify-between cursor-pointer"
+            whileHover={{ y: -8 }}
+            className="p-8 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200/50 dark:border-slate-800/60 shadow-sm flex flex-col justify-between cursor-pointer"
           >
             <div>
               <div className="w-12 h-12 rounded-2xl bg-teal-500/10 flex items-center justify-center text-teal-500 mb-6">
@@ -166,7 +218,7 @@ export default function AboutSection() {
                 Strategy
               </h3>
               <p className="font-sans text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-                Leveraging state-of-the-art digital matchmaking pipelines and robust localized advisor networks to provide instant credit verification and doorstep assistance across all Indian states.
+                Leveraging state-of-the-art digital matchmaking pipelines and localized representative assistance to coordinate with banks for fast disbursals and verification.
               </p>
             </div>
           </motion.div>

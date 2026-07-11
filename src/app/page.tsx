@@ -8,14 +8,14 @@ import Navbar from '@/components/Navbar';
 import Hero from '@/components/Hero';
 import AboutSection from '@/components/AboutSection';
 import ServicesSection from '@/components/ServicesSection';
+import CreditMatchSection from '@/components/CreditMatchSection';
 import CalculatorSection from '@/components/CalculatorSection';
+import InterestRatesSection from '@/components/InterestRatesSection';
 import TimelineSection from '@/components/TimelineSection';
 import WhyChooseUs from '@/components/WhyChooseUs';
-import FAQSection from '@/components/FAQSection';
 import BlogsSection from '@/components/BlogsSection';
 import ContactSection from '@/components/ContactSection';
 import ApplyForm from '@/components/ApplyForm';
-import Testimonials from '@/components/Testimonials';
 import FocusedInfo from '@/components/FocusedInfo';
 import Footer from '@/components/Footer';
 
@@ -23,7 +23,7 @@ export default function Home() {
   const [currentView, setView] = useState('home');
 
   const handleViewChange = (view: string) => {
-    const sectionIds = ['home', 'services', 'calculators', 'faq', 'blogs', 'contact'];
+    const sectionIds = ['home', 'services', 'calculators', 'blogs', 'contact'];
     if (sectionIds.includes(view)) {
       setView('home');
       setTimeout(() => {
@@ -97,11 +97,11 @@ export default function Home() {
 
             <AboutSection />
             <ServicesSection setView={handleViewChange} setSelectedLoanType={setSelectedLoanType} />
+            <CreditMatchSection />
             <CalculatorSection />
+            <InterestRatesSection />
             <TimelineSection />
             <WhyChooseUs />
-            <Testimonials />
-            <FAQSection />
             <BlogsSection />
             <ContactSection />
           </>
@@ -115,9 +115,6 @@ export default function Home() {
           <CalculatorSection />
         )}
 
-        {currentView === 'faq' && (
-          <FAQSection />
-        )}
 
         {currentView === 'blogs' && (
           <BlogsSection />
@@ -136,13 +133,13 @@ export default function Home() {
         {currentView === 'privacy' &&
           renderStaticPage(
             'Privacy Policy',
-            'At DIGI LOANS (Starpowerz Digital Technologies Pvt. Ltd.), we prioritize your data privacy. We secure all document files (Aadhaar, PAN, and bank statements) using standard SSL encryption.\n\nWe do not share your private contact information with third-party callers. Data is submitted directly to our matched banking partners for credit verification. Read our legal clauses for more details on user consent.'
+            'At DIGI LOANS, we prioritize your data privacy. We secure all document files (Aadhaar, PAN, and bank statements) using standard SSL encryption.\n\nWe do not share your private contact information with third-party callers. Data is submitted directly to our matched banking partners for credit verification. Read our legal clauses for more details on user consent.'
           )}
 
         {currentView === 'terms' &&
           renderStaticPage(
             'Terms of Service',
-            'Welcome to DIGI LOANS. By submitting an application, you agree to allow the Get Loans Hub and StarPowerz team to verify credit scores and represent your files before our bank partners.\n\nWe do not guarantee approvals; final sanction decisions are determined exclusively by respective lending institutions and underwriting teams.'
+            'Welcome to DIGI LOANS. By submitting an application, you agree to allow the Get Loans Hub team to verify credit scores and represent your files before our bank partners.\n\nWe do not guarantee approvals; final sanction decisions are determined exclusively by respective lending institutions and underwriting teams.'
           )}
 
         {currentView === 'careers' && (
@@ -162,7 +159,7 @@ export default function Home() {
         {currentView === 'disclaimer' && (
           renderStaticPage(
             'Legal Disclaimer',
-            'DIGI LOANS (Starpowerz Digital Technologies Pvt. Ltd.) is a loan facilitation marketplace. We represent banking products and interest rates for informational purposes. Final approvals, sanction amounts, interest rates, and processing fees are determined solely by lending partners under RBI guidelines.'
+            'DIGI LOANS is a loan facilitation marketplace. We represent banking products and interest rates for informational purposes. Final approvals, sanction amounts, interest rates, and processing fees are determined solely by lending partners under RBI guidelines.'
           )
         )}
 
@@ -183,7 +180,7 @@ export default function Home() {
         {currentView === 'rbi-disclosure' && (
           renderStaticPage(
             'RBI Disclosure & Compliance',
-            'Starpowerz Digital Technologies Pvt. Ltd. operates as a digital sourcing partner and Corporate Business Correspondent for regulated banking entities. We display product disclosures and matched credit policies in strict accordance with RBI digital lending guidelines.'
+            'Get Loans Hub operates as a digital sourcing partner and Corporate Business Correspondent for regulated banking entities. We display product disclosures and matched credit policies in strict accordance with RBI digital lending guidelines.'
           )
         )}
 

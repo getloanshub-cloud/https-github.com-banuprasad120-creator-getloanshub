@@ -27,9 +27,9 @@ export default function TimelineSection() {
     },
     {
       num: '02',
-      title: 'Document Verification',
+      title: 'Profile Verification',
       duration: '30 MINUTES',
-      desc: 'Upload Aadhaar, PAN, and bank statements. Our advisors and banking partners securely verify your documentation in real-time.',
+      desc: 'Provide basic verification details. Our advisors and banking partners securely verify your profile in real-time.',
       icon: FileCheck
     },
     {
@@ -337,11 +337,11 @@ export default function TimelineSection() {
   };
 
   return (
-    <section className="py-24 bg-[#080B11] text-white overflow-hidden border-t border-slate-900 relative">
+    <section className="section-py bg-[#080B11] text-white overflow-hidden border-t border-slate-900 relative">
       {/* Background visual glow */}
       <div className="absolute top-1/2 left-1/4 w-[500px] h-[500px] bg-primary/10 rounded-full blur-[120px] -translate-y-1/2 -z-10 pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="container-custom">
         
         {/* Section Title */}
         <div className="text-center max-w-3xl mx-auto mb-16">

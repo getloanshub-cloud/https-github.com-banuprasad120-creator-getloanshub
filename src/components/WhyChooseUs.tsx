@@ -39,18 +39,18 @@ export default function WhyChooseUs() {
   ];
 
   return (
-    <section className="py-24 relative overflow-hidden bg-slate-50 dark:bg-slate-900/30">
+    <section className="section-py relative overflow-hidden bg-slate-50 dark:bg-slate-900/30">
       {/* Subtle radial backdrop accent */}
       <div className="absolute top-1/2 left-1/2 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[120px] -translate-x-1/2 -translate-y-1/2 -z-10" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="container-custom">
         
         {/* Title Section */}
-        <div className="text-center max-w-3xl mx-auto mb-20">
+        <div className="text-center max-w-3xl mx-auto mb-16">
           <span className="text-xs font-bold text-primary dark:text-accent uppercase tracking-widest bg-primary/5 dark:bg-accent/10 px-4 py-2 rounded-full border border-primary/10 dark:border-accent/10">
             Our Advantage
           </span>
-          <h2 className="font-display font-extrabold text-3xl sm:text-4xl lg:text-[46px] text-slate-900 dark:text-white mt-4 leading-tight">
+          <h2 className="font-display font-extrabold fluid-heading text-slate-900 dark:text-white mt-4 leading-tight">
             Why Choose Us
           </h2>
         </div>
@@ -66,8 +66,8 @@ export default function WhyChooseUs() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ duration: 0.25, delay: index * 0.05 }}
-                whileHover={{ y: -6, rotateY: 3, rotateX: -1, scale: 1.015 }}
-                className="p-8 rounded-3xl glass-card premium-border flex flex-col items-start text-left border border-slate-200/50 dark:border-slate-800/80 hover:border-primary/25 dark:hover:border-accent/25 hover:shadow-xl hover:shadow-primary/5 transition-all duration-150 group preserve-3d cursor-pointer"
+                whileHover={{ y: -6 }}
+                className="p-8 rounded-3xl fintech-card flex flex-col items-start text-left hover:shadow-xl hover:shadow-primary/5 transition-all duration-150 group preserve-3d cursor-pointer"
               >
                 {/* Gradient-circled icon container */}
                 <div className={`w-12 h-12 rounded-2xl bg-gradient-to-tr ${card.color} flex items-center justify-center text-white shadow-lg transition-transform group-hover:scale-110 duration-200 mb-6`}>

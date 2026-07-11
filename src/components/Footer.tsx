@@ -21,7 +21,7 @@ export default function Footer({ setView, setSelectedLoanType }: FooterProps) {
     title: 'Representative',
     phone: '+91 9000100262',
     email: 'info@getloanshub.com',
-    company: 'Starpowerz Digital Technologies Pvt. Ltd.',
+    company: 'Get Loans Hub',
     address: 'Paigah Plaza, Basheerbagh, Hyderabad, Telangana - 500063'
   };
 
@@ -141,11 +141,11 @@ export default function Footer({ setView, setSelectedLoanType }: FooterProps) {
             </ul>
           </div>
 
-          {/* COLUMN 3: Tools & FAQ (Spans 2 cols on desktop, Collapsible on Mobile) */}
+          {/* COLUMN 3: Useful Tools (Spans 2 cols on desktop, Collapsible on Mobile) */}
           <div className="lg:col-span-2 space-y-4">
             <div className="flex items-center justify-between border-b border-slate-850 pb-2 md:border-b-0 md:pb-0 cursor-pointer md:cursor-default" onClick={() => toggleSection('tools')}>
               <h4 className="font-display font-bold text-xs uppercase tracking-wider text-white">
-                Tools & FAQ
+                Useful Tools
               </h4>
               <span className="md:hidden text-slate-400">
                 {expandedSection === 'tools' ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
@@ -155,8 +155,7 @@ export default function Footer({ setView, setSelectedLoanType }: FooterProps) {
             <ul className={`space-y-2 text-xs md:block ${expandedSection === 'tools' ? 'block animate-fade-in' : 'hidden'}`}>
               {[
                 { name: 'EMI Calculator', id: 'calculators' },
-                { name: 'Eligibility Checker', id: 'calculators' },
-                { name: 'FAQ & Tips', id: 'faq' }
+                { name: 'Eligibility Checker', id: 'calculators' }
               ].map((tool) => (
                 <li key={tool.name}>
                   <button 
@@ -273,14 +272,7 @@ export default function Footer({ setView, setSelectedLoanType }: FooterProps) {
           
           <div className="flex items-center gap-1.5 justify-center">
             <span>Designed & Developed by</span>
-            <a 
-              href="https://starpowerz.com" 
-              target="_blank" 
-              rel="noreferrer" 
-              className="text-[#F5B301] hover:underline"
-            >
-              Starpowerz Digital Technologies Pvt. Ltd.
-            </a>
+            <span className="text-[#F5B301] font-bold">Get Loans Hub</span>
           </div>
 
           <div className="text-right flex items-center gap-4">

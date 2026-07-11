@@ -71,8 +71,8 @@ function matchFAQ(text: string, language: 'en' | 'te'): string | null {
   // Office Location / Contact
   if (clean.includes('address') || clean.includes('branch') || clean.includes('location') || clean.includes('ఆఫీస్') || clean.includes('చిరునామా')) {
     return language === 'te'
-      ? 'మా ప్రధాన కార్యాలయం హుజూరాబాద్‌లో ఉంది. Starpowerz Digital Technologies ద్వారా మేం దేశవ్యాప్తంగా సేవలు అందిస్తున్నాం.'
-      : 'Our headquarters is located at Huzurabad. As part of Starpowerz Digital Technologies, we consult clients online PAN-India.';
+      ? 'మా ప్రధాన కార్యాలయం హుజూరాబాద్‌లో ఉంది. Get Loans Hub ద్వారా మేం దేశవ్యాప్తంగా సేవలు అందిస్తున్నాం.'
+      : 'Our headquarters is located at Huzurabad. As part of Get Loans Hub, we consult clients online PAN-India.';
   }
 
   return null;

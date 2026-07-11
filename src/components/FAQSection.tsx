@@ -29,15 +29,15 @@ export default function FAQSection() {
   };
 
   return (
-    <section className="py-20" id="faq">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 w-full">
+    <section className="py-16 md:py-20 lg:py-32" id="faq">
+      <div className="container-custom max-w-4xl">
         
         {/* Title */}
         <div className="text-center mb-12">
           <span className="text-xs font-bold text-primary dark:text-accent uppercase tracking-wider bg-primary/5 dark:bg-accent/10 px-3.5 py-1.5 rounded-full">
             Knowledge Base
           </span>
-          <h2 className="font-display font-extrabold text-3xl text-slate-900 dark:text-white mt-2">
+          <h2 className="font-display font-extrabold fluid-heading text-slate-900 dark:text-white mt-2">
             Frequently Asked Questions
           </h2>
           <p className="font-sans text-xs text-slate-500 dark:text-slate-400 mt-2">
@@ -96,11 +96,13 @@ export default function FAQSection() {
                         {faq.question}
                       </span>
                     </div>
-                    {isExpanded ? (
-                      <ChevronUp className="w-4 h-4 text-slate-400 shrink-0" />
-                    ) : (
-                      <ChevronDown className="w-4 h-4 text-slate-400 shrink-0" />
-                    )}
+                    <motion.div
+                      animate={{ rotate: isExpanded ? 180 : 0 }}
+                      transition={{ duration: 0.2 }}
+                      className="shrink-0 text-slate-400"
+                    >
+                      <ChevronDown className="w-4 h-4" />
+                    </motion.div>
                   </button>
 
                   <AnimatePresence initial={false}>

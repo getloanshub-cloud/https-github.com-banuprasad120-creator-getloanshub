@@ -18,8 +18,8 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: "DIGI LOANS | Premium Loan Advisory & CRM Platform",
-  description: "Get the right loan at the right time. Managed by expert Loans Advisors at Starpowerz Digital Technologies. Compare rates and apply for Personal, Business, Home, Mortgage, Auto and Gold loans.",
-  keywords: "digi loans, huzurabad loans, starpowerz, home loan, business loan, personal loan, mortgage loan, auto loan, gold loan, loan advisory crm",
+  description: "Get the right loan at the right time. Managed by expert Loans Advisors at Get Loans Hub. Compare rates and apply for Personal, Business, Home, Mortgage, Auto and Gold loans.",
+  keywords: "digi loans, huzurabad loans, home loan, business loan, personal loan, mortgage loan, auto loan, gold loan, loan advisory crm",
   authors: [{ name: "Get Loans Hub", url: "mailto:stardigiloanswg@gmail.com" }],
   metadataBase: new URL("https://stardigiloans.com"),
   openGraph: {

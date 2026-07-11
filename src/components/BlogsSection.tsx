@@ -88,15 +88,15 @@ export default function BlogsSection() {
   }
 
   return (
-    <section className="py-20" id="blogs">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="py-16 md:py-20 lg:py-32" id="blogs">
+      <div className="container-custom">
         
         {/* Title */}
         <div className="text-center max-w-3xl mx-auto mb-12">
           <span className="text-xs font-bold text-primary dark:text-accent uppercase tracking-wider">
             Blogs & Insights
           </span>
-          <h2 className="font-display font-extrabold text-3xl sm:text-4xl text-slate-900 dark:text-white mt-2">
+          <h2 className="font-display font-extrabold fluid-heading text-slate-900 dark:text-white mt-2">
             Stay Updated with Financial Advice
           </h2>
           <p className="font-sans text-slate-500 dark:text-slate-400 mt-2">

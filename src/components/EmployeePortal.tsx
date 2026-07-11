@@ -111,7 +111,7 @@ export default function EmployeePortal() {
             <span>Employee CRM Hub</span>
           </h2>
           <p className="text-xs text-slate-400 font-semibold uppercase tracking-wider mt-1">
-            Starpowerz Digital Technologies Pvt. Ltd. | Huzurabad Advisor Profile
+            Get Loans Hub | Huzurabad Advisor Profile
           </p>
         </div>
       </div>

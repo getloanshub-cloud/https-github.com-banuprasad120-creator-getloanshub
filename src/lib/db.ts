@@ -150,7 +150,7 @@ const DEFAULT_BANKS: BankPartner[] = [
 ];
 
 const DEFAULT_FAQS: FAQ[] = [
-  { id: '1', category: 'General', question: 'What is Get Loans Hub?', answer: 'Get Loans Hub is a premium financial advisory and loan consulting brand associated with Starpowerz Digital Technologies Pvt. Ltd., dedicated to helping customers secure the right loans at the best interest rates from multiple leading banks.' },
+  { id: '1', category: 'General', question: 'What is Get Loans Hub?', answer: 'Get Loans Hub is a premium financial advisory and loan consulting brand dedicated to helping customers secure the right loans at the best interest rates from multiple leading banks.' },
   { id: '2', category: 'Eligibility', question: 'What is the minimum CIBIL score required for a Personal Loan?', answer: 'A CIBIL score of 750 or above is ideal and ensures faster approvals with lower interest rates. However, we also have bank partners who process applications for scores starting at 650+.' },
   { id: '3', category: 'Interest Rates', question: 'Are interest rates fixed or floating?', answer: 'It depends on the loan product. Home loans usually have floating interest rates that vary with market index rates, while personal and auto loans are mostly offered with fixed interest rates.' }
 ];

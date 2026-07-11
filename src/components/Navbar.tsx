@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from 'react';
-import { Sparkles, Menu, X, Sun, Moon, LogIn, LogOut, ChevronRight, LayoutDashboard } from 'lucide-react';
+import { Sparkles, Menu, Sun, Moon, LogIn, LogOut, ChevronRight, LayoutDashboard } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { supabase } from '@/lib/supabase';
 import Logo from './Logo';
@@ -182,7 +182,6 @@ export default function Navbar({
     { label: 'Home', id: 'home' },
     { label: 'Services', id: 'services' },
     { label: 'Calculators', id: 'calculators' },
-    { label: 'FAQ', id: 'faq' },
     { label: 'Blogs', id: 'blogs' },
     { label: 'Contact', id: 'contact' },
   ];
@@ -192,7 +191,11 @@ export default function Navbar({
       initial={{ y: -20, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.5, ease: 'easeOut' }}
-      className={`sticky top-0 z-50 glass-nav w-full transition-all duration-300 h-[68px] lg:h-[84px] ${isScrolled ? 'shadow-md bg-white/95 dark:bg-slate-950/95 backdrop-blur-md' : 'shadow-sm bg-white/85 dark:bg-slate-950/85 backdrop-blur-sm'}`} 
+      className={`sticky top-0 z-50 w-full transition-all duration-300 ${
+        isScrolled || isOpen
+          ? 'h-[60px] md:h-[72px] shadow-lg border-b border-slate-200/20 dark:border-slate-800/40 bg-white/80 dark:bg-slate-950/80 backdrop-blur-md' 
+          : 'h-[68px] md:h-[84px] bg-transparent border-b border-transparent'
+      }`} 
       aria-label="Main Navigation"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12 h-full">
@@ -211,7 +214,7 @@ export default function Navbar({
           </motion.div>
 
           {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center gap-8" role="menubar">
+          <div className="hidden md:flex items-center gap-8" role="menubar">
             {menuItems.map((item) => (
               <button
                 key={item.id}
@@ -237,7 +240,7 @@ export default function Navbar({
           </div>
 
           {/* Utilities & Authentication Toggles (Desktop) */}
-          <div className="hidden lg:flex items-center gap-4">
+          <div className="hidden md:flex items-center gap-4">
             {/* Theme Toggle */}
             <motion.button
               whileHover={{ scale: 1.05 }}
@@ -311,7 +314,7 @@ export default function Navbar({
           </div>
 
           {/* Mobile menu controls (Touch Safe: min 48px) */}
-          <div className="flex items-center gap-2 lg:hidden">
+          <div className="flex items-center gap-2 md:hidden">
             <button
               onClick={toggleTheme}
               className="w-12 h-12 rounded-xl border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-300 flex items-center justify-center cursor-pointer focus-visible:ring-2 focus-visible:ring-primary dark:focus-visible:ring-accent outline-none"
@@ -335,40 +338,29 @@ export default function Navbar({
               initial={{ opacity: 0 }}
               animate={{ opacity: 0.45 }}
               exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
               onClick={() => setIsOpen(false)}
-              className="fixed inset-0 z-40 bg-slate-950/45 backdrop-blur-sm lg:hidden"
+              className="fixed inset-x-0 bottom-0 z-[55] bg-slate-950/45 backdrop-blur-sm md:hidden top-[60px]"
             />
 
             {/* Drawer */}
             <motion.div
               ref={drawerRef}
-              initial={{ x: '100%' }}
+              initial={{ x: '-100%' }}
               animate={{ x: 0 }}
-              exit={{ x: '100%' }}
-              transition={{ type: 'spring', damping: 25, stiffness: 220 }}
-              className="fixed top-0 right-0 bottom-0 w-[80vw] max-w-[340px] rounded-l-[24px] bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl shadow-2xl z-50 p-6 flex flex-col justify-between border-l border-slate-200/40 dark:border-slate-800 lg:hidden overflow-y-auto"
+              exit={{ x: '-100%' }}
+              transition={{ type: 'tween', ease: 'easeInOut', duration: 0.3 }}
+              className="fixed top-[60px] left-0 bottom-0 w-[85vw] max-w-[320px] rounded-r-[24px] bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl shadow-2xl z-[60] pt-[calc(80px+env(safe-area-inset-top))] pb-[calc(24px+env(safe-area-inset-bottom))] pl-[calc(24px+env(safe-area-inset-left))] pr-[calc(24px+env(safe-area-inset-right))] flex flex-col justify-between border-r border-slate-200/40 dark:border-slate-800 md:hidden overflow-y-auto"
               role="dialog"
               aria-modal="true"
               aria-label="Mobile navigation sidebar menu"
             >
-              {/* Drawer Header */}
-              <div className="flex items-center justify-between pb-4 border-b border-slate-200 dark:border-slate-850">
-                <Logo className="h-9 w-auto" light={theme === 'dark'} />
-                <button
-                  onClick={() => setIsOpen(false)}
-                  className="w-11 h-11 rounded-xl border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all flex items-center justify-center cursor-pointer"
-                  title="Close menu"
-                >
-                  <X className="w-5 h-5" />
-                </button>
-              </div>
-
               {/* Navigation Items */}
               <div className="flex-1 py-8 space-y-2">
                 {menuItems.map((item, index) => (
                   <motion.button
                     key={item.id}
-                    initial={{ opacity: 0, x: 20 }}
+                    initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: index * 0.05 }}
                     onClick={() => { setView(item.id); setIsOpen(false); }}
